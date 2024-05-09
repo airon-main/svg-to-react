@@ -23,14 +23,15 @@ const names = fs.readdirSync(input).reduce((accumulator, file) => {
 
 // Determine option for single or multiple files
 const option = process.argv[2];
+const parameters = process.argv.slice(3);
 
 // Create file(s)
 switch(option) {
   case 'single':
-    createSingleFile(names, input);
+    createSingleFile(names, input, parameters);
     break;
 
   case 'multiple':
-    createMultipleFiles(names, input);
+    createMultipleFiles(names, input, parameters);
     break;
 };
