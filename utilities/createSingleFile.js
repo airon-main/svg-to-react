@@ -14,23 +14,18 @@ const createSingleFile = (names, input, parameters) => {
       `  );`+'\n'+
       `};` + '\n';
 
-      parameters.forEach((param) => {
-        if (param == "fill") {
-          accumulator = accumulator.replace(/ fill="([^"]*)"/gi," fill=${fill}");
-          parameterOnComponent.push("fill");
-          console.log(accumulator);
-        } else if (param == "size") {
-          accumulator = accumulator.replace(/ width="([^"]*)"/gi," width=${size}");
-          accumulator = accumulator.replace(/ height="([^"]*)"/gi," height=${size}");
-          parameterOnComponent.push("size");
-        } else if (param == "stroke") {
-          accumulator = accumulator.replace(/ stroke="([^"]*)"/gi," stroke=${stroke}");
-          parameterOnComponent.push("stroke");
-        }
-      });
+    parameters.forEach((param) => {
+      if (param == "fill") {
+        accumulator = accumulator.replace(/ fill="([^"]*)"/gi," fill={fill}");
+      } else if (param == "size") {
+        accumulator = accumulator.replace(/ width="([^"]*)"/gi," width={size}");
+        accumulator = accumulator.replace(/ height="([^"]*)"/gi," height={size}");
+      } else if (param == "stroke") {
+        accumulator = accumulator.replace(/ stroke="([^"]*)"/gi," stroke={stroke}");
+      }
+    });
+    accumulator = accumulator.replace(" () ",` ({${parameters.join(", ")}}) `);
 
-      accumulator = accumulator.replace(" () ",` ({${parameters.join(", ")}}) `);
-      
     return accumulator;
   }, "import React from 'react';\n");
 
